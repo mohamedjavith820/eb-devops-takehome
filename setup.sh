@@ -38,10 +38,7 @@ kubectl config use-context "kind-$CLUSTER" >/dev/null
 
 echo "==> ingress-nginx"
 kubectl apply -f "$INGRESS_MANIFEST"
-kubectl wait --namespace ingress-nginx \
-  --for=condition=ready pod \
-  --selector=app.kubernetes.io/component=controller \
-  --timeout=180s
+kubectl -n ingress-nginx rollout status deployment/ingress-nginx-controller --timeout=180s
 
 echo "==> build + load image"
 docker build -t "$IMAGE:$TAG" service/

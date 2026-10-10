@@ -2,7 +2,7 @@
 FROM python:3.12.8-slim-bookworm AS builder
 WORKDIR /build
 COPY requirements.txt .
-RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+RUN mkdir -p /install && pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 # ---- runtime stage ----
 FROM python:3.12.8-slim-bookworm
